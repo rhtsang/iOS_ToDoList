@@ -9,18 +9,17 @@
 import UIKit
 
 class ToDoListViewController: UITableViewController {
-
-    let defaults = UserDefaults.standard
     
-    var tasks = ["groceries", "bike", "flu shot"]
+    var tasks = [Task]()
+    
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Tasks.plist")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        if let exampleTasks = defaults.array(forKey: "ToDoList") as? [String] {
-            tasks = exampleTasks
-        }
+        loadTasks()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,7 +32,11 @@ class ToDoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "toDoItemCell", for: indexPath)
-        cell.textLabel?.text = tasks[indexPath.row]
+        let task = tasks[indexPath.row]
+        
+        cell.textLabel?.text = task.taskName
+        
+        cell.accessoryType = task.taskCompleted ? .checkmark : .none
         
         return cell
     }
@@ -46,11 +49,9 @@ class ToDoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
+        tasks[indexPath.row].taskCompleted = !tasks[indexPath.row].taskCompleted
+        
+        saveTasks()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -63,9 +64,11 @@ class ToDoListViewController: UITableViewController {
         
         let alert = UIAlertController(title: "Add a new task to do!", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-            self.tasks.append(textField.text!)
-            self.defaults.set(self.tasks, forKey: "ToDoList")
-            self.tableView.reloadData()
+            let task = Task()
+            task.taskName = textField.text!
+            self.tasks.append(task)
+            
+            self.saveTasks()
         }
         
         alert.addTextField { (alertTextField) in
@@ -76,6 +79,32 @@ class ToDoListViewController: UITableViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
         
+    }
+    
+    //MARK - Model Manipulation Methods
+    
+    func saveTasks() {
+        let encoder = PropertyListEncoder()
+        
+        do {
+            let data = try encoder.encode(tasks)
+            try data.write(to: dataFilePath!)
+        } catch {
+            print("Error encoding")
+        }
+        
+        tableView.reloadData()
+    }
+    
+    func loadTasks() {
+        if let data = try? Data(contentsOf: dataFilePath!) {
+            let decoder = PropertyListDecoder()
+            do {
+                tasks = try decoder.decode([Task].self, from: data)
+            } catch {
+                print("error decoding")
+            }
+        }
     }
     
 }
