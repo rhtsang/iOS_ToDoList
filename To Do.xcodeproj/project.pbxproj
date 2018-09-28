@@ -15,6 +15,7 @@
 		F0816642215575C600D025D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0816640215575C600D025D6 /* LaunchScreen.storyboard */; };
 		F09E1B5E21583E59001E69D3 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E1B5D21583E59001E69D3 /* Task.swift */; };
 		F09E1B6021583E62001E69D3 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E1B5F21583E62001E69D3 /* Category.swift */; };
+		F0AF18602159B9640083868F /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AF185F2159B9640083868F /* SwipeTableViewController.swift */; };
 		F9FDDA2C96C3C6552E4E71D8 /* Pods_To_Do.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 482C36EE259E38F8CB566FA4 /* Pods_To_Do.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		F0816643215575C600D025D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F09E1B5D21583E59001E69D3 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		F09E1B5F21583E62001E69D3 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		F0AF185F2159B9640083868F /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 		F08166492155B2EA00D025D6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				F0AF185F2159B9640083868F /* SwipeTableViewController.swift */,
 				F01D35FD2157329D00323C14 /* CategoryViewController.swift */,
 				F0816639215575C400D025D6 /* ToDoListViewController.swift */,
 			);
@@ -249,6 +252,7 @@
 				F081663A215575C400D025D6 /* ToDoListViewController.swift in Sources */,
 				F09E1B5E21583E59001E69D3 /* Task.swift in Sources */,
 				F0816638215575C400D025D6 /* AppDelegate.swift in Sources */,
+				F0AF18602159B9640083868F /* SwipeTableViewController.swift in Sources */,
 				F09E1B6021583E62001E69D3 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
